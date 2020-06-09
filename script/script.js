@@ -4,6 +4,12 @@ let head;
 let interval;
 let level;
 
+if(localStorage.getItem('highscore')==null){
+    localStorage.setItem('highscore',0)
+}else{
+    highscore = localStorage.getItem('highscore')
+}
+
 
 let config = {
     width: window.innerWidth - 16,
@@ -29,12 +35,6 @@ function create(){
     this.highscore = '';
     this.bee = this.add.sprite(W/2,H/2,'bee').setScale(W*H/3000000);
     this.bee.setInteractive();
-    
-    if(localStorage.getItem('highscore')==null){
-        localStorage.setItem('highscore',this.score)
-    }else{
-        highscore = localStorage.getItem('highscore')
-    }
     
     this.input.on('pointerdown',run,this);
 
