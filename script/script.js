@@ -46,8 +46,7 @@ function update(){
 function run(){
     interval = setInterval(appear,t,this.bee);
     this.bee.on('pointerdown',addscore,this);
-
-    this.input.off('pointerdown', run);
+    this.input.off('pointerdown');
     head.setText("")
     let style = { font: `20px Arial`, fill: '#fff' };
 
@@ -65,6 +64,7 @@ function appear(q){
 function addscore(){
     this.score+=point;
     this.scoreText.setText('score: ' + this.score);
+    this.input.on('pointerdown',function(){if(this.score>0){this.score-=5};this.scoreText.setText('score: ' + this.score);},this);
     if(localStorage.getItem('highscore')<this.score){
         localStorage.setItem('highscore',this.score)
         this.highscore.setText('HighScore:'+this.score)
@@ -73,7 +73,7 @@ function addscore(){
 }
 
 function changetime(){
-    if(t>400){
+    if(t>200){
         t-=200;
         point+=20;
 
