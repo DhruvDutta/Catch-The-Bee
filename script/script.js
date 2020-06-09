@@ -59,7 +59,7 @@ function run(){
     this.scoreText = this.add.text(10, 30, 'score: ' + this.score, style);
     this.highscore = this.add.text(10, 10, 'HighScore: ' + localStorage.getItem('highscore'), style);
 
-    level = setInterval(levelup,10000,this.bee);
+    level = setInterval(levelup,12000,this.bee);
 
 }
 function appear(q){
