@@ -73,7 +73,7 @@ function addscore(){
 }
 
 function changetime(){
-    if(t>200){
+    if(t>400){
         t-=200;
         point+=20;
 
