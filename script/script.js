@@ -25,10 +25,14 @@ let config = {
 let game = new Phaser.Game(config)
 function preload(){
     this.load.image('bee','script/Assets/bee.png');
+    this.load.image('back','script/Assets/back.jpg');
+
 }
 function create(){
     let W = game.config.width;
     let H = game.config.height;
+    this.back = this.add.sprite(W/2,H/2,'back').setScale(.6)
+    this.back.setInteractive();
     head = this.add.text(20,10,'Catch The Bee',{ font: `30px Arial`, fill: '#fff' })
     this.score = 0;
     this.scoreText = '';
@@ -46,6 +50,8 @@ function update(){
 function run(){
     interval = setInterval(appear,t,this.bee);
     this.bee.on('pointerdown',addscore,this);
+    this.back.on('pointerdown',subscore,this);
+
     this.input.off('pointerdown');
     head.setText("")
     let style = { font: `20px Arial`, fill: '#fff' };
@@ -64,12 +70,19 @@ function appear(q){
 function addscore(){
     this.score+=point;
     this.scoreText.setText('score: ' + this.score);
-    this.input.on('pointerdown',function(){this.score-=5;this.scoreText.setText('score: ' + this.score);if(this.score<0){document.write('<center><h2>GameOver</h2></center>')}},this);
     if(localStorage.getItem('highscore')<this.score){
         localStorage.setItem('highscore',this.score)
         this.highscore.setText('HighScore:'+this.score)
     }
 
+}
+function subscore(){
+    this.score-=point/2;
+    this.scoreText.setText('score: ' + this.score);
+    if(this.score<0){
+        document.write('<center><h2>GameOver</h2></center>')
+    };
+    console.log("asd")
 }
 
 function changetime(){
