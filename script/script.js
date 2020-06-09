@@ -25,7 +25,7 @@ let config = {
 let game = new Phaser.Game(config)
 function preload(){
     this.load.image('bee','script/Assets/bee.png');
-    this.load.image('back','script/Assets/back.jpg');
+    this.load.image('back','script/Assets/back1.jpg');
 
 }
 function create(){
@@ -59,7 +59,7 @@ function run(){
     this.scoreText = this.add.text(10, 30, 'score: ' + this.score, style);
     this.highscore = this.add.text(10, 10, 'HighScore: ' + localStorage.getItem('highscore'), style);
 
-    level = setInterval(levelup,5000,this.bee);
+    level = setInterval(levelup,10000,this.bee);
 
 }
 function appear(q){
