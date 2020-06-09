@@ -64,7 +64,7 @@ function appear(q){
 function addscore(){
     this.score+=point;
     this.scoreText.setText('score: ' + this.score);
-    this.input.on('pointerdown',function(){if(this.score>0){this.score-=5};this.scoreText.setText('score: ' + this.score);},this);
+    this.input.on('pointerdown',function(){this.score-=5;this.scoreText.setText('score: ' + this.score);if(this.score<0){document.write('<center><h2>GameOver</h2></center>')}},this);
     if(localStorage.getItem('highscore')<this.score){
         localStorage.setItem('highscore',this.score)
         this.highscore.setText('HighScore:'+this.score)
