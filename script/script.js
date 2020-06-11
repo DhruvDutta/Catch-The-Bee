@@ -80,7 +80,7 @@ function subscore(){
     this.score-=point/2;
     this.scoreText.setText('score: ' + this.score);
     if(this.score<0){
-        document.write('<center><h2>GameOver</h2></center>')
+        document.write('<center><h2 style="margin-top:50vh;">Game Over</h2><hr><a href="https://dhruvdutta.github.io/MYWebsite/">View More</a><hr></center>')
     };
     console.log("asd")
 }
