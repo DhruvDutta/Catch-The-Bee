@@ -8,6 +8,7 @@ let pre_x=window.innerWidth/2;
 let bee;
 let score =0;
 let scoreText ='';
+let beespeed=1;
 if(localStorage.getItem('highscore')==null){
     localStorage.setItem('highscore',0)
 }else{
@@ -47,7 +48,7 @@ function create(){
     play.alpha=.2;
     this.tweens.add({
         targets: [bee],
-        y: W/2+10,
+        y: (H/2)-20,
         duration: 1500,
         ease: 'Sine.easeInOut',
         loop: -1,
@@ -62,11 +63,35 @@ function create(){
         yoyo:true
     })
     this.input.on('pointerdown',run,this);
-
+    flyto()
 }
 function update(){
+   /* if(bee.x<x-1){
+        bee.x+=beespeed;
+    }else if(bee.x>x+1){
+        bee.x-=beespeed;
+    }else{
+        flyto();
+    }
+    if(bee.y<y){
+        bee.y+=beespeed;
+    }else if(bee.y>y){
+        bee.y-=beespeed;
+    }else{
+        flyto();
+    }
+ */   
+}
+let x;
+let y;
+
+function flyto(){
+    x = Phaser.Math.Between(50,game.config.width-30);
+    y = Phaser.Math.Between(50,game.config.width-30);
+    console.log(x,y)
     
 }
+
 
 function run(){
     this.tweens.killTweensOf(play)
@@ -132,3 +157,6 @@ function levelup(b){
     clearInterval(interval);
     interval = setInterval(appear,t,b);
 }
+
+
+
