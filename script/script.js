@@ -9,6 +9,8 @@ let bee;
 let score =0;
 let scoreText ='';
 let beespeed=1;
+let cloud;
+let txt;
 if(localStorage.getItem('highscore')==null){
     localStorage.setItem('highscore',0)
 }else{
@@ -32,6 +34,7 @@ let game = new Phaser.Game(config)
 function preload(){
     this.load.image('bee','script/Assets/bee.png');
     this.load.image('back','script/Assets/back1.jpg');
+    this.load.image('cloud','script/Assets/cloud.png');
 
 }
 function create(){
@@ -40,15 +43,37 @@ function create(){
     this.back = this.add.sprite(W/2,H/2,'back').setScale(.6)
     this.back.setInteractive();
     head = this.add.text(20,10,'Catch The Bee',{ font: `30px Arial`, fill: '#fff' })
-
     this.highscore = '';
     bee = this.add.sprite(W/2,H/2-50,'bee').setScale(W*H/3000000);
     bee.setInteractive();
     play = this.add.text(W/2-60,H/2,'Play',{font:'70px Arial',fill:'#fff',align:'center'})
-    play.alpha=.2;
+    play.alpha=0;
+    cloud = this.add.sprite((W/2)-bee.width*W*H/3000000,(H/2)-bee.height/15,'cloud').setScale(W*H/1200000).setFlip(true,false);
+    txt = this.add.text(cloud.x-cloud.width*W/6500,cloud.y-cloud.height*H/22000,'Hello Friend!',{font:`${cloud.width*W*H/12000000}px cursive`,fill:'#000'});
+    txt.alpha =0;
+    setTimeout(greet,1000,this);
+    cloud.alpha = 0;
+    txt1 = this.add.text(cloud.x-cloud.width*W/7500,cloud.y-cloud.height*H/18000,'Can You\nCatch Me!',{font:`${cloud.width*W*H/12000000}px cursive`,fill:'#000',align:'center'});
+    txt1.alpha = 0;
     this.tweens.add({
         targets: [bee],
         y: (H/2)-20,
+        duration: 1500,
+        ease: 'Sine.easeInOut',
+        loop: -1,
+        yoyo: true
+    });
+    this.tweens.add({
+        targets: [cloud],
+        y: cloud.y+20,
+        duration: 1500,
+        ease: 'Sine.easeInOut',
+        loop: -1,
+        yoyo: true
+    });
+    this.tweens.add({
+        targets: [txt,txt1],
+        y: txt.y+20,
         duration: 1500,
         ease: 'Sine.easeInOut',
         loop: -1,
@@ -62,8 +87,49 @@ function create(){
         loop:-1,
         yoyo:true
     })
+    this.tweens.add({
+        targets:[cloud],
+        alpha:1,
+        delay:1000,
+        duration:700,
+        ease:'Sine.easeInOut',
+    })
+    this.tweens.add({
+        targets:[txt],
+        alpha:1,
+        delay:1200,
+        duration:700,
+        ease:'Sine.easeInOut',
+    })
+    this.tweens.add({
+        targets:[txt],
+        alpha:0,
+        delay:2500,
+        duration:700,
+        ease:'Sine.easeInOut',
+    })
+    this.tweens.add({
+        targets:[txt1],
+        alpha:1,
+        delay:3500,
+        duration:700,
+        ease:'Sine.easeInOut',
+    })
+    this.tweens.add({
+        targets:[txt1],
+        alpha:0,
+        delay:5000,
+        duration:700,
+        ease:'Sine.easeInOut',
+    })
+    this.tweens.add({
+        targets:[cloud],
+        alpha:0,
+        delay:5000,
+        duration:700,
+        ease:'Sine.easeInOut',
+    })
     this.input.on('pointerdown',run,this);
-    flyto()
 }
 function update(){
    /* if(bee.x<x-1){
@@ -82,20 +148,26 @@ function update(){
     }
  */   
 }
+function greet(){
+}
+
+
 let x;
 let y;
+
 
 function flyto(){
     x = Phaser.Math.Between(50,game.config.width-30);
     y = Phaser.Math.Between(50,game.config.width-30);
-    console.log(x,y)
     
 }
 
 
 function run(){
     this.tweens.killTweensOf(play)
-    
+    cloud.alpha=0;
+    txt.alpha=0;
+    txt1.alpha=0;
     interval = setInterval(appear,t,bee);
     bee.on('pointerdown',addscore,this);
     this.back.on('pointerdown',subscore,this);
