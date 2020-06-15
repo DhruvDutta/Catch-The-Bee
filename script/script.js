@@ -50,12 +50,17 @@ function create(){
     play = this.add.text(W/2-60,H/2,'Play',{font:'70px Arial',fill:'#fff',align:'center'})
     play.alpha=0;
     play.depth=2;
-    cloud = this.add.sprite((W/2)-bee.width*W*H/3000000,(H/2)-bee.height/15,'cloud').setScale(W*H/1200000).setFlip(true,false);
-    txt = this.add.text(cloud.x-cloud.width*W/6500,cloud.y-cloud.height*H/22000,'Hello Friend!',{font:`${cloud.width*W*H/12000000}px cursive`,fill:'#000'});
+    if(W>H){
+        cloud = this.add.sprite((W/2)-bee.width*W*H/3000000,(H/2)-bee.height/15,'cloud').setScale(W*H/1200000).setFlip(true,false);
+        txt = this.add.text(cloud.x-cloud.width*W*H/4000000,cloud.y-cloud.height*H*W/22000000,'Hello Friend!',{font:`${cloud.width*W*H/12000000}px cursive`,fill:'#000'});
+        txt1 = this.add.text(cloud.x-cloud.width*W*H*6/22000000,cloud.y-cloud.height*H*W/10000000,'Can You\nCatch Me!',{font:`${cloud.width*W*H/12000000}px cursive`,fill:'#000',align:'center'});
+    }else{
+        cloud = this.add.sprite((W/2)+10,(H/2)-bee.height*W*H/1440000,'cloud').setScale(.4).setFlip(true,false);
+        txt = this.add.text(cloud.x-89.5,cloud.y-15,'Hello Friend!',{font:`30px cursive`,fill:'#000'});
+        txt1 = this.add.text(cloud.x-70,cloud.y-32,'Can You\nCatch Me!',{font:`30px cursive`,fill:'#000',align:'center'});
+    }
     txt.alpha =0;
-    setTimeout(greet,1000,this);
     cloud.alpha = 0;
-    txt1 = this.add.text(cloud.x-cloud.width*W/7500,cloud.y-cloud.height*H/18000,'Can You\nCatch Me!',{font:`${cloud.width*W*H/12000000}px cursive`,fill:'#000',align:'center'});
     txt1.alpha = 0;
     this.tweens.add({
         targets: [bee],
@@ -74,8 +79,16 @@ function create(){
         yoyo: true
     });
     this.tweens.add({
-        targets: [txt,txt1],
+        targets: [txt],
         y: txt.y+20,
+        duration: 1500,
+        ease: 'Sine.easeInOut',
+        loop: -1,
+        yoyo: true
+    });
+    this.tweens.add({
+        targets: [txt1],
+        y: txt1.y+20,
         duration: 1500,
         ease: 'Sine.easeInOut',
         loop: -1,
@@ -150,8 +163,7 @@ function update(){
     }
  */   
 }
-function greet(){
-}
+
 
 
 let x;
@@ -166,7 +178,7 @@ function flyto(){
 
 
 function run(){
-    this.tweens.killTweensOf(play)
+    this.tweens.killTweensOf([play,cloud,txt,txt1])
     cloud.alpha=0;
     txt.alpha=0;
     txt1.alpha=0;
