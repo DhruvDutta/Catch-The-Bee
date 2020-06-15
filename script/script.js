@@ -64,7 +64,7 @@ function create(){
     txt1.alpha = 0;
     this.tweens.add({
         targets: [bee],
-        y: (H/2)-20,
+        y: bee.x-20,
         duration: 1500,
         ease: 'Sine.easeInOut',
         loop: -1,
