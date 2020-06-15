@@ -53,7 +53,7 @@ function create(){
     if(W>H){
         cloud = this.add.sprite((W/2)-bee.width*W*H/3000000,(H/2)-bee.height/15,'cloud').setScale(W*H/1200000).setFlip(true,false);
         txt = this.add.text(cloud.x-cloud.width*W*H/4000000,cloud.y-cloud.height*H*W/22000000,'Hello Friend!',{font:`${cloud.width*W*H/12000000}px cursive`,fill:'#000'});
-        txt1 = this.add.text(cloud.x-cloud.width*W*H*6/22000000,cloud.y-cloud.height*H*W/10000000,'Can You\nCatch Me!',{font:`${cloud.width*W*H/12000000}px cursive`,fill:'#000',align:'center'});
+        txt1 = this.add.text(cloud.x-cloud.width*W*H*4.65/24000000,cloud.y-cloud.height*H*W/10000000,'Can You\nCatch Me!',{font:`${cloud.width*W*H/12000000}px cursive`,fill:'#000',align:'center'});
     }else{
         cloud = this.add.sprite((W/2)+10,(H/2)-bee.height*W*H/1440000,'cloud').setScale(.4).setFlip(true,false);
         txt = this.add.text(cloud.x-89.5,cloud.y-15,'Hello Friend!',{font:`30px cursive`,fill:'#000'});
